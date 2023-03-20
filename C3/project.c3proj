@@ -85,7 +85,16 @@
 	},
 	"rootFileFolders": {
 		"script": {
-			"items": [],
+			"items": [
+				{
+					"name": "polerp.js",
+					"type": "application/javascript",
+					"sid": 185345744801407,
+					"script-info": {
+						"purpose": "imports-for-events"
+					}
+				}
+			],
 			"subfolders": []
 		},
 		"sound": {

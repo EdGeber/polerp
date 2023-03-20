@@ -90,6 +90,16 @@
 				},
 				{
 					"eventType": "variable",
+					"name": "NumPolerpPoints",
+					"type": "number",
+					"initialValue": "1000",
+					"comment": "The number of polerp points calculated for linear interpolation",
+					"isStatic": false,
+					"isConstant": true,
+					"sid": 723057971401511
+				},
+				{
+					"eventType": "variable",
 					"name": "currX",
 					"type": "number",
 					"initialValue": "0",
@@ -142,9 +152,9 @@
 												{
 													"id": "set-function-return-value",
 													"objectClass": "Functions",
-													"sid": 567355570655787,
+													"sid": 680380103738213,
 													"parameters": {
-														"value": "(Mouse.X-CenterX)/PixelsPerUnit"
+														"value": "Functions.W2D_x(Mouse.X)"
 													}
 												}
 											],
@@ -172,9 +182,9 @@
 												{
 													"id": "set-function-return-value",
 													"objectClass": "Functions",
-													"sid": 336570358880491,
+													"sid": 341917079558481,
 													"parameters": {
-														"value": "-(Mouse.Y-CenterY)/PixelsPerUnit"
+														"value": "Functions.W2D_y(Mouse.Y)"
 													}
 												}
 											],
@@ -251,6 +261,10 @@
 												}
 											],
 											"sid": 556727608663385
+										},
+										{
+											"eventType": "script",
+											"script": "runtime.W2D = point => {\n\tconst [x, y] = point;\n\treturn [runtime.callFunction(\"W2D_x\", x), runtime.callFunction(\"W2D_y\", y)];\n}\nruntime.D2W = point => {\n\tconst [x, y] = point;\n\treturn [runtime.callFunction(\"D2W_x\", x), runtime.callFunction(\"D2W_y\", y)];\n}"
 										}
 									]
 								},
@@ -304,6 +318,158 @@
 										{
 											"eventType": "script",
 											"script": "runtime.DisplayPoints = [];\nruntime.WindowPoints = [];"
+										}
+									]
+								},
+								{
+									"functionName": "W2D_x",
+									"functionDescription": "",
+									"functionCategory": "",
+									"functionReturnType": "number",
+									"functionCopyPicked": false,
+									"functionIsAsync": false,
+									"functionParameters": [
+										{
+											"name": "x",
+											"type": "number",
+											"initialValue": "0",
+											"comment": "",
+											"sid": 240571672433696
+										}
+									],
+									"eventType": "function-block",
+									"conditions": [],
+									"actions": [],
+									"sid": 688558274857064,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-function-return-value",
+													"objectClass": "Functions",
+													"sid": 751477935833924,
+													"parameters": {
+														"value": "(x-CenterX)/PixelsPerUnit"
+													}
+												}
+											],
+											"sid": 940834419803689
+										}
+									]
+								},
+								{
+									"functionName": "W2D_y",
+									"functionDescription": "",
+									"functionCategory": "",
+									"functionReturnType": "number",
+									"functionCopyPicked": false,
+									"functionIsAsync": false,
+									"functionParameters": [
+										{
+											"name": "y",
+											"type": "number",
+											"initialValue": "0",
+											"comment": "",
+											"sid": 284268719246306
+										}
+									],
+									"eventType": "function-block",
+									"conditions": [],
+									"actions": [],
+									"sid": 443527248874646,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-function-return-value",
+													"objectClass": "Functions",
+													"sid": 227434447913035,
+													"parameters": {
+														"value": "-(y-CenterY)/PixelsPerUnit"
+													}
+												}
+											],
+											"sid": 100528251218490
+										}
+									]
+								},
+								{
+									"functionName": "D2W_x",
+									"functionDescription": "",
+									"functionCategory": "",
+									"functionReturnType": "number",
+									"functionCopyPicked": false,
+									"functionIsAsync": false,
+									"functionParameters": [
+										{
+											"name": "x",
+											"type": "number",
+											"initialValue": "0",
+											"comment": "",
+											"sid": 276840245224535
+										}
+									],
+									"eventType": "function-block",
+									"conditions": [],
+									"actions": [],
+									"sid": 186020121598601,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-function-return-value",
+													"objectClass": "Functions",
+													"sid": 282010092722479,
+													"parameters": {
+														"value": "x*PixelsPerUnit+CenterX"
+													}
+												}
+											],
+											"sid": 201763634207513
+										}
+									]
+								},
+								{
+									"functionName": "D2W_y",
+									"functionDescription": "",
+									"functionCategory": "",
+									"functionReturnType": "number",
+									"functionCopyPicked": false,
+									"functionIsAsync": false,
+									"functionParameters": [
+										{
+											"name": "y",
+											"type": "number",
+											"initialValue": "0",
+											"comment": "",
+											"sid": 714223422748150
+										}
+									],
+									"eventType": "function-block",
+									"conditions": [],
+									"actions": [],
+									"sid": 391100845523391,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-function-return-value",
+													"objectClass": "Functions",
+													"sid": 805423165263953,
+													"parameters": {
+														"value": "-y*PixelsPerUnit+CenterY"
+													}
+												}
+											],
+											"sid": 962157831225432
 										}
 									]
 								}
@@ -763,7 +929,7 @@
 								},
 								{
 									"functionName": "DrawLerp",
-									"functionDescription": "Draws the linear interpolation of the given points, in the order they are given.",
+									"functionDescription": "Draws the linear interpolation of the given points in window coordinates, in the order they are given.",
 									"functionCategory": "",
 									"functionReturnType": "none",
 									"functionCopyPicked": false,
@@ -826,7 +992,7 @@
 									"children": [
 										{
 											"eventType": "script",
-											"script": "const compareFn = (a, b) => {\n\tif(a[0] < b[0]) return -1;\n\tif(a[0] > b[0]) return 1;\n\treturn 0;\n}\nruntime.WindowPoints.sort(compareFn);\nruntime.DisplayPoints.sort(compareFn);\n// generate the points with polerp...\nruntime.callFunction(\"DrawLerp\", \"WindowPoints\");"
+											"script": "const compareFn = (a, b) => {\n\tif(a[0] < b[0]) return -1;\n\tif(a[0] > b[0]) return 1;\n\treturn 0;\n}\nruntime.WindowPoints.sort(compareFn);\nruntime.DisplayPoints.sort(compareFn);\nconst screenWidth = localVars.ScreenWidth/localVars.PixelsPerUnit;\n// assumes CenterX is at the center of the screen\nconst xMin = -screenWidth/2 - 2;\nconst xMax = -xMin;\nconst points = [];\nconst f = Polerp(runtime.DisplayPoints);\nfor(let i=0; i<localVars.NumPolerpPoints; i++) {\n\tconst t = i/(localVars.NumPolerpPoints-1);\n\tconst x = (1-t)*xMin + t*xMax;\n\tconst y = f(x);\n\tpoints.push([x, y]);\n}\nruntime.points = points.map(point => runtime.D2W(point));\nruntime.callFunction(\"DrawLerp\", \"points\");"
 										}
 									]
 								}
